@@ -14,6 +14,9 @@ public class serviceIncidencia {
 
     // Crear
     public Incidencia crearincidencia(Incidencia incidencia){
+        incidencia.setEstado("ABIERTA");
+        incidencia.setFecha_creacion(java.time.LocalDate.now());
+
         return repository.save(incidencia);
     }
 
@@ -29,15 +32,18 @@ public class serviceIncidencia {
 
     // editar
     public Incidencia modificar(Incidencia incidencia){
-        if(!repository.existsById(incidencia.getIdentificador())){
-            return null;
+        if(repository.existsById(incidencia.getIdentificador())){
+            return repository.save(incidencia);
         }
-        return repository.save(incidencia);
+        return null;
     }
 
     // eliminar
-    public void eliminar(int id){
-        repository.deleteById(id);
-        
+    public boolean eliminar(int id){
+        if(repository.existsById(id)){
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

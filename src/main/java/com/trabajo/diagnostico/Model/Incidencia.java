@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
+
 
 @Data
 @NoArgsConstructor
@@ -24,21 +24,15 @@ public class Incidencia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int identificador;
 
-    @NonNull
     private String titulo;
 
-    @NonNull
     private String descripcion;
  
-    @NonNull
     private String categoria;
  
-    @NonNull
     private String prioridad;
  
-    @NonNull
     private String estado;
- 
 
     private LocalDate fecha_creacion;
 }

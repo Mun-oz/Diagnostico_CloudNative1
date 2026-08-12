@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 
 
 @RestController
-@RequestMapping("/api/incidencia")
+@RequestMapping("/api/incidencias")
 
 public class controllerincidencia {
 
@@ -35,7 +35,7 @@ public class controllerincidencia {
 
     @GetMapping
     public ResponseEntity<List<Incidencia>> mostrarinidencias(){
-        System.out.println("mostrando todas las incidencias");
+        System.out.println("[controllerincidencias] => mostrarincidencias");
         List<Incidencia> incidencias = service.mostrarincidencias();
         return ResponseEntity.ok(incidencias);
     }    
@@ -43,7 +43,7 @@ public class controllerincidencia {
 
     @GetMapping("/{id}")
     public ResponseEntity<Incidencia> mostrarpordetalle(@PathVariable int id){
-        System.out.println("Mostrando detalle de incidencia");
+        System.out.println("[controllerincidencias] => mostrarpordetalle");
         Incidencia incidencia = service.mostrarporuna(id);
         if(incidencia == null){
             return ResponseEntity.notFound().build();
@@ -52,20 +52,25 @@ public class controllerincidencia {
         return ResponseEntity.ok(incidencia);
     }
 
-    @PutMapping
-    public ResponseEntity<Incidencia> modificar(@RequestBody Incidencia incidencia){
+    @PutMapping("/{id}")
+    public ResponseEntity<Incidencia> modificar(@PathVariable int id,@RequestBody Incidencia incidencia){
+        System.out.println("[controllerincidencias] => modificar");
+        incidencia.setIdentificador(id);
         Incidencia modificada = service.modificar(incidencia);
 
         if(modificada == null){
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.ok(modificada);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable int id){
-        service.eliminar(id);
+        System.out.println("[controllerindicencias => eliminar]");
+        boolean eliminado = service.eliminar(id);
+        if(!eliminado){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.noContent().build();
     }
 
