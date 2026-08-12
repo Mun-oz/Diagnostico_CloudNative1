@@ -29,7 +29,7 @@ public class serviceIncidencia {
 
     // editar
     public Incidencia modificar(Incidencia incidencia){
-        if(repository.existsById(incidencia.getIdentificador())){
+        if(!repository.existsById(incidencia.getIdentificador())){
             return null;
         }
         return repository.save(incidencia);

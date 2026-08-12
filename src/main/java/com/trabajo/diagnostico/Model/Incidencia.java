@@ -1,5 +1,7 @@
 package com.trabajo.diagnostico.Model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,5 +40,5 @@ public class Incidencia {
     private String estado;
  
 
-    private int fecha_creacion;
+    private LocalDate fecha_creacion;
 }

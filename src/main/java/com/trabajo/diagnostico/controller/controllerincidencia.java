@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 
 
@@ -43,7 +44,33 @@ public class controllerincidencia {
     @GetMapping("/{id}")
     public ResponseEntity<Incidencia> mostrarpordetalle(@PathVariable int id){
         System.out.println("Mostrando detalle de incidencia");
-        
+        Incidencia incidencia = service.mostrarporuna(id);
+        if(incidencia == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(incidencia);
     }
+
+    @PutMapping
+    public ResponseEntity<Incidencia> modificar(@RequestBody Incidencia incidencia){
+        Incidencia modificada = service.modificar(incidencia);
+
+        if(modificada == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(modificada);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable int id){
+        service.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
+
+
     
 }
